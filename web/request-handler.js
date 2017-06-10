@@ -19,7 +19,7 @@ exports.handleRequest = function (req, res) {
         res.end(data);
       }
     });
-  } else if(req.method === 'POST') {
+  } else if (req.method === 'POST') {
     
   } else {
     statusCode = 404;

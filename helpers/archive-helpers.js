@@ -24,12 +24,11 @@ exports.initialize = function(pathsObj) {
 
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
-var urlArr;
 
 exports.readListOfUrls = function(callback) {
   //loop throujgh list
   fs.readFile(this.paths.list, 'utf8', (err, data) => {
-    urlArr = data.split('\n');
+    var urlArr = data.split('\n');
     callback(urlArr);
   });
 };

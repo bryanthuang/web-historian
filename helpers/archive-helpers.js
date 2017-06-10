@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
-
+var fetch = require('node-fetch');
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
  * Consider using the `paths` object below to store frequently used file paths. This way,
@@ -52,16 +52,89 @@ exports.addUrlToList = function(url, callback) {
 
 exports.isUrlArchived = function(url, callback) {
   //checks if html files already exist in sites folder
-  fs.stat(this.paths.archivedSites + '/' + url, (err, stat) => {
-    if (err) {
-      // console.log(stat);
-      callback(false);
-    } else {
-      callback(true);
-    }
+  fs.readdir(this.paths.archivedSites, (err, files) => {
+    return callback(files.includes(url));
   });
+  // this.isUrlInList(url, exists => {
+  //   if (exists) {
+  //     this.stat(this.paths.archivedSites + '/' + url, (err, stat) => {
+  //       if (err) {
+  //         console.log(err);
+  //         // callback();
+  //       } else {
+  //         callback();
+  //       }
+  //     });
+  //   } else {
+  //     this.addUrlToList(url, callback);
+  //   }
+  // });
+  // this.stat(this.paths.archivedSites + '/' + url, (err, stat) => {
+  //   if (err) {
+  //     console.log(err);
+  //     callback(err);
+  //   } else {
+  //     callback();
+  //   }
+  // });
 };
 
 exports.downloadUrls = function(urls) {
-  //download html files from site
+  // var path;
+  // for (var i = 0; i < urls.length; i++) {
+  //   path = this.paths.archivedSites + '/' + url[i];
+  //   fetch('https://' + url[i]).then(res => {
+  //     return res.text();
+  //   }).then(body => {
+  //     fs.writeFile(path, body);
+  //   });
+  // }
+  urls.forEach(url => {
+    path = this.paths.archivedSites + '/' + url;
+    fetch('https://' + url).then(res => {
+      return res.text();
+    }).then(body => {
+      fs.writeFile(path, body);
+    });
+  });
+  // loop through sites.text 
+    // check isUrlArchived
+      // if false
+  //      // download url 
+  // this.readListOfUrls(urls => {
+  //   for (var i = 0; i < urls.length; i++) {
+  //     this.isUrlArchived(urls[i], (exists) =>{
+  //       console.log(exists)
+  //       // console.log(urls[i])
+  //       if (!exists) {
+  //         var file = fs.createWriteStream(urls[i]);
+  //         console.log('file' ,file);
+  //         var request = http.get(url[i], (response) => {
+  //           response.pipe(file);
+  //           file.on('finish', () => {
+  //             console.log('finished: ', response);
+  //           });
+  //         }).on('error', (err) => {
+  //           console.log('error');
+  //         });
+  //       }
+  //     }); 
+  //   }
+  // });
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

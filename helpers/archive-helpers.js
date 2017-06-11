@@ -55,40 +55,10 @@ exports.isUrlArchived = function(url, callback) {
   fs.readdir(this.paths.archivedSites, (err, files) => {
     return callback(files.includes(url));
   });
-  // this.isUrlInList(url, exists => {
-  //   if (exists) {
-  //     this.stat(this.paths.archivedSites + '/' + url, (err, stat) => {
-  //       if (err) {
-  //         console.log(err);
-  //         // callback();
-  //       } else {
-  //         callback();
-  //       }
-  //     });
-  //   } else {
-  //     this.addUrlToList(url, callback);
-  //   }
-  // });
-  // this.stat(this.paths.archivedSites + '/' + url, (err, stat) => {
-  //   if (err) {
-  //     console.log(err);
-  //     callback(err);
-  //   } else {
-  //     callback();
-  //   }
-  // });
 };
 
 exports.downloadUrls = function(urls) {
-  // var path;
-  // for (var i = 0; i < urls.length; i++) {
-  //   path = this.paths.archivedSites + '/' + url[i];
-  //   fetch('https://' + url[i]).then(res => {
-  //     return res.text();
-  //   }).then(body => {
-  //     fs.writeFile(path, body);
-  //   });
-  // }
+  
   urls.forEach(url => {
     path = this.paths.archivedSites + '/' + url;
     fetch('https://' + url).then(res => {
@@ -97,30 +67,7 @@ exports.downloadUrls = function(urls) {
       fs.writeFile(path, body);
     });
   });
-  // loop through sites.text 
-    // check isUrlArchived
-      // if false
-  //      // download url 
-  // this.readListOfUrls(urls => {
-  //   for (var i = 0; i < urls.length; i++) {
-  //     this.isUrlArchived(urls[i], (exists) =>{
-  //       console.log(exists)
-  //       // console.log(urls[i])
-  //       if (!exists) {
-  //         var file = fs.createWriteStream(urls[i]);
-  //         console.log('file' ,file);
-  //         var request = http.get(url[i], (response) => {
-  //           response.pipe(file);
-  //           file.on('finish', () => {
-  //             console.log('finished: ', response);
-  //           });
-  //         }).on('error', (err) => {
-  //           console.log('error');
-  //         });
-  //       }
-  //     }); 
-  //   }
-  // });
+  
 };
 
 
